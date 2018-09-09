@@ -4,8 +4,8 @@ import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { withClientState } from 'apollo-link-state';
 import { ApolloLink } from 'apollo-link';
-import resolvers from '@/resolvers';
 
+import resolvers from './resolvers';
 
 const PROD = process.env.APP_ENV === 'production';
 const PROTOCOL = PROD ? 'https://api.' : 'http://api.';
