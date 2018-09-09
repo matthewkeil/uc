@@ -34,14 +34,14 @@ export default (ssr = false) => {
         resolvers,
     });
 
-    if (!ssr) {
-        if (typeof window !== undefined) {
-            const state = (window as any).__APOLLO_STATE__;
-            if (state) {
-                cache.restore(state.defaultClient)
-            }
-        }
-    }
+    // if (!ssr) {
+    //     if (typeof window !== undefined) {
+    //         const state = (window as any).__APOLLO_STATE__;
+    //         if (state) {
+    //             cache.restore(state.defaultClient)
+    //         }
+    //     }
+    // }
 
     return new ApolloClient({
         cache,
@@ -50,6 +50,6 @@ export default (ssr = false) => {
             stateLink,
             apiLinkAuth.concat(apiLink),
         ]),
-        ...(ssr ? {ssrMode: true} : {ssrForceFetchDelay: 100}),
+        // ...(ssr ? {ssrMode: true} : {ssrForceFetchDelay: 100}),
     });
 };
