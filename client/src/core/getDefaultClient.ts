@@ -7,10 +7,11 @@ import { ApolloLink } from 'apollo-link';
 
 import resolvers from './resolvers';
 
-const PROD = process.env.APP_ENV === 'production';
-const PROTOCOL = PROD ? 'https://api.' : 'http://api.';
-const HOST = process.env.APP_HOST || 'localhost';
-const PORT = PROD ? process.env.APP_DEV_PORT : 80;
+const APP_ENV = process.env.APP_ENV || 'development';
+const PROD = APP_ENV === 'production';
+const PROTOCOL = PROD ? 'https://' : 'http://';
+const HOST = '192.168.99.100';
+const PORT = 4000;
 const uri = PROTOCOL + HOST + ':' + PORT;
 
 export default (ssr = false) => {
@@ -34,14 +35,14 @@ export default (ssr = false) => {
         resolvers,
     });
 
-    // if (!ssr) {
-    //     if (typeof window !== undefined) {
-    //         const state = (window as any).__APOLLO_STATE__;
-    //         if (state) {
-    //             cache.restore(state.defaultClient)
-    //         }
-    //     }
-    // }
+    if (!ssr) {
+        if (typeof window !== undefined) {
+            const state = (window as any).__APOLLO_STATE__;
+            if (state) {
+                cache.restore(state.defaultClient);
+            }
+        }
+    }
 
     return new ApolloClient({
         cache,
@@ -50,6 +51,6 @@ export default (ssr = false) => {
             stateLink,
             apiLinkAuth.concat(apiLink),
         ]),
-        // ...(ssr ? {ssrMode: true} : {ssrForceFetchDelay: 100}),
+        ...(ssr ? {ssrMode: true} : {ssrForceFetchDelay: 100}),
     });
 };

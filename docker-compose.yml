@@ -1,0 +1,114 @@
+version: "3.7"
+
+volumes:
+  nginx:
+  redis:
+  neo4j:
+  # mongo:
+  
+services:
+  data:
+    container_name: utila-coffee_data
+    build:
+      context: .
+      dockerfile: config/docker/data.dockerfile
+    env_file:
+      - ./.env
+    networks:
+      - uc-network
+    volumes:
+      - nginx:/data/nginx
+      - redis:/data/redis
+      - neo4j:/data/neo4j
+  #     - mongo:/data/mongo
+  # nginx:
+  #   container_name: utila-coffee_nginx
+  #   restart: always
+  #   image: bitnami/nginx:1.14-debian-9
+  #   # build:
+  #   #   context: .
+  #   #   dockerfile: config/docker/nginx.dockerfile
+  #   cap_drop: 
+  #     - ALL
+  #   cap_add:
+  #     - CHOWN
+  #     - NET_BIND_SERVICE
+  #   depends_on:
+  #     - data
+  #     - graphql
+  #   env_file:
+  #     - ./.env
+  #   networks: 
+  #     - uc-network
+  #   ports:
+  #     - '8080:8080'
+  #     - '8443:8443'
+  #   volumes:
+  #     - ./config/ssl:/bitnami/nginx/conf/bitnami/certs
+  #     - ./config/nginx/my_vhosts.conf:/opt/bitnami/nginx/conf/vhosts/my_vhost.conf:ro
+  redis:
+    container_name: utila-coffee_redis
+    restart: always
+    build: 
+      context: .
+      dockerfile: config/docker/redis.dockerfile
+    depends_on:
+      - data
+    env_file:
+      - ./.env
+    networks:
+      - uc-network
+    ports: 
+      - "6379:6379"
+    volumes:
+      - redis:/data
+  neo4j:
+    container_name: utila-coffee_neo4j
+    restart: always
+    image: bitnami/neo4j
+    depends_on:
+      - data
+    environment:
+      - "NEO4J_URI=${NEO4J_URI}"
+      - "NEO4J_USERNAME=${NEO4J_USERNAME}"
+      - "NEO4J_PASSWORD=${NEO4J_PASSWORD}"
+    networks:
+      - uc-network
+    ports: 
+      - "7687:7687"
+      - "7474:7474"
+    volumes: 
+      - neo4j:/bitnami/neo4j
+  graphql:
+    container_name: utila-coffee_graphql
+    restart: always
+    build: 
+      context: .
+      dockerfile: config/docker/dev.dockerfile
+    depends_on:
+      - data
+    env_file:
+      - ./.env 
+    networks: 
+      - uc-network
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./server/src:/usr/app/src:delegated
+  # mongo:
+  #   container_name: utila-coffee_mongo
+  #   restart: always
+  #   image: bitnami/mongodb
+  #   depends_on:
+  #     - data
+  #   env_file:
+  #     - ./.env
+  #   networks: 
+  #     - uc-network
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongo:/bitnami/mongo
+networks:
+  uc-network:
+    driver: bridge

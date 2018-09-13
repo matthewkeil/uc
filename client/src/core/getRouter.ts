@@ -10,13 +10,13 @@ export default () => new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'ingredients',
+      component: () => import(/* webpackChunkName: "login" */ '../views/Ingredients.vue'),
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
-    },
+    // {
+    //   path: '/',
+    //   name: 'home',
+    //   component: Home,
+    // },
   ],
 });

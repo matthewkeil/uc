@@ -1,0 +1,10 @@
+events {}
+
+http {
+
+    server {
+        listen ${APP_DEV_PORT};
+        server_name localhost api.localhost cdn.localhost;
+        return 300 http://${DOCKER_MACHINE_IP}:80;
+    }
+}

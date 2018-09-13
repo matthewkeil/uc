@@ -1,0 +1,23 @@
+{
+  "name": "uc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "start": "npm run dev:client & npm run dev:server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewkeil/uc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthewkeil/uc/issues"
+  },
+  "homepage": "https://github.com/matthewkeil/uc#readme",
+  "devDependencies": {}
+}

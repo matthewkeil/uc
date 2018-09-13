@@ -12,31 +12,12 @@
 </template>
 
 <script>
-import HelloWorld from './shared/HelloWorld';
-import Login from './shared/Login';
-import Register from './shared/Register';
+// import Ingredients from './shared/Ingredients';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld,
-    Login,
-    Register,
-  },
-  data() {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire',
-      }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js',
-    };
-  },
+  // components: {
+  //   Ingredients,
+  // },
 };
 </script>
