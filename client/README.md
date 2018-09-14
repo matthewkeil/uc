@@ -1,4 +1,4 @@
-# client
+# utila-coffee
 
 ## Project setup
 ```

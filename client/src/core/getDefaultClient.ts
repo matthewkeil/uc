@@ -10,7 +10,7 @@ import resolvers from './resolvers';
 const APP_ENV = process.env.APP_ENV || 'development';
 const PROD = APP_ENV === 'production';
 const PROTOCOL = PROD ? 'https://' : 'http://';
-const HOST = '192.168.99.100';
+const HOST = '192.168.99.101';
 const PORT = 4000;
 const uri = PROTOCOL + HOST + ':' + PORT;
 

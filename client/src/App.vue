@@ -1,23 +1,22 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title>UTILA.coffee</v-toolbar-title>
-      <v-spacer />
-      <v-btn>Menu</v-btn>
-    </v-toolbar>
+    <Toolbar />
     <v-content>
-      <router-view></router-view>
+      <router-view />
     </v-content>
+    <Footer />
   </v-app>
 </template>
 
 <script>
-// import Ingredients from './shared/Ingredients';
+import Toolbar from './shared/Toolbar';
+import Footer from './shared/Footer';
 
 export default {
   name: 'App',
-  // components: {
-  //   Ingredients,
-  // },
+  components: {
+    Toolbar,
+    Footer,
+  },
 };
 </script>

@@ -1,17 +1,3 @@
-# type Query {
-#   getAllIngredient: [Ingredient!]!
-#   getAllRecipe: [Recipe!]!
-#   getAllItem: [MenuItem!]!
-#   getAllMenu: [Menu!]!
-# }
-
-# type Mutation {
-#   newIngredient(name: String!): Ingredient!
-#   newRecipe(name: String!, ingredients: [Ingredient!]!): Recipe!
-#   newMenuItem(): MenuItem!
-#   newMenu(): Menu!
-# }
-
 type User {
   id: ID!
   email: String!

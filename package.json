@@ -19,5 +19,6 @@
     "url": "https://github.com/matthewkeil/uc/issues"
   },
   "homepage": "https://github.com/matthewkeil/uc#readme",
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {}
 }
