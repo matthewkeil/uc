@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec node_modules/.bin/ts-node src --watch src --ext ts, graphql"
+    "dev": "nodemon --exec node_modules/.bin/ts-node src --watch src"
   },
   "keywords": [],
   "author": "",
