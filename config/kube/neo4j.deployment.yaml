@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neo4j-deployment
+spec:
+  replicas: 1
+  minReadySeconds: 2
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: neo4j
+  template:
+    metadata:
+      labels:
+        app: neo4j
+    spec:
+      restartPolicy: Always
+      # terminationGracePeriodSeconds: 2
+      # serviceAccountName: neo4j
+      containers:
+      - name: neo4j-pod
+        image: bitnami/neo4j
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NEO4J_PASSWORD
+          value: neo4j
+        ports:
+        - containerPort: 7687
+          hostPort: 7687
+        - containerPort: 7474
+          hostPort: 7474
+        volumeMounts:
+        - name: neo4j-volume
+          mountPath: /bitnami/neo4j
+        # lifecycle:
+        #   postStart:
+        #     exec:
+        #       command: ["/bin/bash", "echo\ Booga\ Booga\ Motherfucker.\ Neo4j\ just\ started..."]
+        # ***** prestop is BLOCKING, be careful bro *******
+        #   preStop
+        #     exec:
+        #       command: ["/bin/bash", "echo\ Booga\ Booga\ Motherfucker.\ Neo4j\ just\ started..."]
+      volumes:
+      - name: neo4j-volume
+        persistentVolumeClaim:
+          claimName: pvc-neo4j

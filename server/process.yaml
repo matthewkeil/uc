@@ -1,0 +1,5 @@
+apps:
+- name: graphql
+  script: src
+  watch: true
+  interpreter: node_modules/.bin/ts-node

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphql-deployment
+spec:
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: graphql
+  template:
+    metadata:
+      labels:
+        app: graphql
+    spec:
+      restartPolicy: Always
+      # terminationGracePeriodSeconds: 2
+      # serviceAccountName: neo4j
+      containers:
+      - name: graphql-pod
+        image: graphql:dev
+        imagePullPolicy: Never
+        env:
+        - name: NEO4J_URI
+          value: bolt://192.168.99.100:7687
+        - name: NEO4J_USERNAME
+          value: neo4j
+        - name: NEO4J_PASSWORD
+          value: neo4j
+        ports:
+        - containerPort: 4000
+          hostPort: 4000
+        volumeMounts:
+        - name: graphql-volume
+          mountPath: /usr/app/graphql/src
+        # lifecycle:
+        #   postStart:
+        #     exec:
+        #       command: ["/bin/bash", "echo\ Booga\ Booga\ Motherfucker.\ Neo4j\ just\ started..."]
+        # ***** prestop is BLOCKING, be careful bro *******
+        #   preStop
+        #     exec:
+        #       command: ["/bin/bash", "echo\ Booga\ Booga\ Motherfucker.\ Neo4j\ just\ started..."]
+      volumes:
+      - name: graphql-volume
+        persistentVolumeClaim:
+          claimName: pvc-graphql

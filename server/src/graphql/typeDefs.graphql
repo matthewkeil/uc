@@ -1,0 +1,48 @@
+
+type USER {
+  token: String!
+  email: String!
+}
+
+fragment BaseType on  {
+
+}
+
+type Ingredient {
+  id: ID!
+  name: String!
+  createdAt: Int!
+  createdBy: User!
+}
+
+type Recipe {
+  id: ID!
+  name: String!
+  createdAt: Int!
+  createdBy: User!
+  ingredients: [Ingredient!]
+
+}
+
+type MenuItem {
+  id: ID!
+  name: String!
+  createdAt: Int!
+  createdBy: User!
+  recipes: [Recipe!]
+}
+
+type MenuSection {
+  id: ID!
+  name: String!
+  createdAt: Int!
+  createdBy: User!
+  items: [MenuItem!]
+}
+
+type Menu {
+  id: ID!
+  name: String!
+  createdAt: Int!
+  createdBy: User!
+}

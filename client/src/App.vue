@@ -1,22 +1,32 @@
 <template>
   <v-app>
-    <Toolbar />
-    <v-content>
+    <v-content class="content">
       <router-view />
     </v-content>
-    <Footer />
+    <Toolbar :user="user" />
   </v-app>
 </template>
 
+<style lang="scss" scoped>
+  .content {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+
 <script>
 import Toolbar from './shared/Toolbar';
-import Footer from './shared/Footer';
 
 export default {
   name: 'App',
   components: {
     Toolbar,
-    Footer,
+  },
+  computed: {
+    user() {
+      return undefined;
+    },
   },
 };
 </script>
